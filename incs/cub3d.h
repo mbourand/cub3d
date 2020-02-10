@@ -6,7 +6,7 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 16:38:05 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/08 20:36:36 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/10 21:44:01 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,14 @@
 # define FACE_SOUTH 1
 # define FACE_WEST 2
 # define FACE_EAST 3
+# define TRANSPARENT_COLOR 0x000000
 
 # define K_UP 122
 # define K_DOWN 115
 # define K_LEFT 113
 # define K_RIGHT 100
+# define K_CAMUP 65362
+# define K_CAMDOWN 65364
 # define K_CAMLEFT 65361
 # define K_CAMRIGHT 65363
 
@@ -38,6 +41,7 @@
 # define PLAYER_SIZE 100
 # define MOVE_SPEED 450
 # define CAM_SPEED 3.13
+# define CAM_SPEED_V 20
 # define FOV 60
 
 typedef struct		s_map
@@ -73,9 +77,9 @@ typedef struct		s_point
 
 typedef struct		s_ray
 {
-	double			wall;
-	double			distance;
 	double			angle;
+	double			distance;
+	double			wall;
 	int				face;
 }					t_ray;
 
@@ -83,26 +87,33 @@ typedef struct		s_player
 {
 	t_point			pos;
 	double			cam_angle;
-	t_ray			ray;
+	t_ray			*rays;
 	double			proj_dist;
 }					t_player;
 
 typedef struct		s_game
 {
+	t_map			map;
+	t_player		p;
+	t_list			*spritecoords;
 	void			*mlx_ptr;
 	void			*win_ptr;
 	int				keys[6];
+	double			floor_coef;
 	t_image			img;
-	t_image	tex_no;
-	t_image	tex_so;
-	t_image	tex_we;
-	t_image	tex_ea;
-	t_map			map;
-	t_player		p;
+	t_image			tex_no;
+	t_image			tex_so;
+	t_image			tex_we;
+	t_image			tex_ea;
+	t_image			tex_s;
 }					t_game;
 
+t_list				*point_lstnew(double x, double y);
+t_point				point(double x, double y);
+void				render_sprites(t_game *game);
+double				distance(t_point p, t_point p2);
 int					get_tile_at(t_point point, t_list *map_d);
-void				render_wall(t_game *game, int x);
+void				render_wall(t_game *game, t_ray *ray, int x);
 void				image_set_pixel(t_image *img, int x, int y, int color);
 int					image_get_color(t_image img, int x, int y);
 void				move_player(t_player *p, t_map map);

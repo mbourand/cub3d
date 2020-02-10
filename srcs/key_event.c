@@ -6,7 +6,7 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 12:16:14 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/08 20:36:46 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/09 01:25:48 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,14 @@ int	key_pressed(int key, void *param)
 		player->cam_angle = constrain(player->cam_angle - CAM_SPEED, 0, 360);
 	if (key == K_CAMRIGHT)
 		player->cam_angle = constrain(player->cam_angle + CAM_SPEED, 0, 360);
+	if (key == K_CAMUP)
+		game->floor_coef -= CAM_SPEED_V;
+	if (key == K_CAMDOWN)
+		game->floor_coef += CAM_SPEED_V;
+	if (game->floor_coef >= game->map.res[1] / 2)
+		game->floor_coef = game->map.res[1] / 2 - 1;
+	if (game->floor_coef <= -game->map.res[1] / 2)
+		game->floor_coef = -game->map.res[1] / 2 + 1;
 	if (key == K_UP || key == K_DOWN || key == K_LEFT || key == K_RIGHT)
 	{
 		player->cam_angle += get_angle(key);

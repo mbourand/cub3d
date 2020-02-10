@@ -6,7 +6,7 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 15:50:10 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/08 17:19:35 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/10 21:21:09 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static void	setup_mlx(t_game *game)
 		error("East texture couldn't be load.");
 	if (!load_image(game->map.tex_we, &(game->tex_we), game->mlx_ptr))
 		error("West texture couldn't be load.");
+	if (!load_image(game->map.tex_s, &(game->tex_s), game->mlx_ptr))
+		error("Sprite texture couldn't be load.");
 	if (!(game->win_ptr = mlx_new_window(game->mlx_ptr, game->map.res[0],
 		game->map.res[1], "cub3d")))
 		error("The window couldnt't be created..");
@@ -44,7 +46,7 @@ static void		place_player(t_game *game)
 	char	*s;
 	int		i;
 	int		j;
-	
+
 	tmp = game->map.map_d;
 	j = 0;
 	while (tmp)
@@ -53,10 +55,11 @@ static void		place_player(t_game *game)
 		i = -1;
 		while (s[++i])
 		{
+			if (s[i] == '2')
+				ft_lstadd_back(&(game->spritecoords), point_lstnew(i / 2, j));
 			if (s[i] == 'S' || s[i] == 'E' || s[i] == 'W' || s[i] == 'N')
 			{
-				game->p.pos.x = (i / 2) * CUBE_SIZE + (CUBE_SIZE / 2);
-				game->p.pos.y = j * CUBE_SIZE + (CUBE_SIZE / 2);
+				game->p.pos = point((i / 2) * CUBE_SIZE + (CUBE_SIZE / 2), j * CUBE_SIZE + (CUBE_SIZE / 2));
 				game->p.cam_angle = get_char_angle(s[i]);
 				return ;
 			}
@@ -74,6 +77,8 @@ int			main(int argc, char **argv)
 		error("Invalid number of arguments.");
 	init_game(&game);
 	parse_map(argv[1], &(game.map));
+	if (!(game.p.rays = malloc(sizeof(t_ray) * game.map.res[0])))
+		error("An allocation error has occured.");
 	setup_mlx(&game);
 	place_player(&game);
 	game.p.proj_dist = fabs((game.map.res[0] / 2.0) /

@@ -20,7 +20,7 @@ SRC_NAME= main.c parser.c parserutils.c ray.c utils.c ft_numberlen.c \
 			get_next_line.c get_next_line_utils.c ft_skipcharset.c \
 			ft_endswith.c ft_strdel.c ft_onlypattern.c check_map.c \
 			mathutils.c key_event.c close_event.c render.c ft_inrange.c \
-			image.c camera.c map.c render_wall.c
+			image.c camera.c map.c render_wall.c render_sprite.c
 OBJ_NAME= $(SRC_NAME:.c=.o)
 
 INC= -I incs/ -I libft/

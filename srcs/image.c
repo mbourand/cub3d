@@ -6,7 +6,7 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 13:18:03 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/08 20:15:40 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/10 03:55:12 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,7 @@ void	image_set_pixel(t_image *img, int x, int y, int color)
 
 int		image_get_color(t_image img, int x, int y)
 {
+	if (!ft_inrange(x, 0, img.w) || !ft_inrange(y, 0, img.h))
+		return (0);
 	return (*(int*)(img.data + ((x + (y * img.w)) * (img.bpp / 8))));
 }

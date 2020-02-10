@@ -6,7 +6,7 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 12:04:20 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/08 20:13:42 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/10 21:29:09 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static double	find_wall(t_point step, t_point *intersect, t_game *game)
 {
 	int			found;
-	t_point		dist;
 
 	found = 0;
 	while (found != '1')
@@ -23,11 +22,7 @@ static double	find_wall(t_point step, t_point *intersect, t_game *game)
 		if ((found = get_tile_at(*intersect, game->map.map_d)) == -1)
 			return (-1);
 		if (found == '1')
-		{
-			dist.x = game->p.pos.x - intersect->x;
-			dist.y = game->p.pos.y - intersect->y;
-			return (sqrt((dist.x * dist.x) + (dist.y * dist.y)));
-		}
+			return (distance(game->p.pos, *intersect));
 		intersect->x += step.x;
 		intersect->y += step.y;
 	}
