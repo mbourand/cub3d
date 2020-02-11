@@ -6,7 +6,7 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 15:50:10 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/10 21:21:09 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/11 17:37:29 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ static void		place_player(t_game *game)
 				ft_lstadd_back(&(game->spritecoords), point_lstnew(i / 2, j));
 			if (s[i] == 'S' || s[i] == 'E' || s[i] == 'W' || s[i] == 'N')
 			{
-				game->p.pos = point((i / 2) * CUBE_SIZE + (CUBE_SIZE / 2), j * CUBE_SIZE + (CUBE_SIZE / 2));
+				game->p.pos = point((i / 2) * CUBE_SIZE + (CUBE_SIZE / 2),
+					j * CUBE_SIZE + (CUBE_SIZE / 2));
 				game->p.cam_angle = get_char_angle(s[i]);
 				return ;
 			}
@@ -72,20 +73,26 @@ static void		place_player(t_game *game)
 int			main(int argc, char **argv)
 {
 	t_game	game;
+	int		screenshot;
 
-	if (argc != 2)
-		error("Invalid number of arguments.");
+	screenshot = 0;
+	if (argc < 2 || argc > 3)
+		error(ERR_ARG_COUNT);
+	if (argc == 3 && !ft_strncmp(argv[2], "--save", (ft_strlen(argv[2]) > 6 ? ft_strlen(argv[2]) : 6)))
+		screenshot = 1;
+	else if (argc == 3)
+		error(ERR_ARG_SAVE);
 	init_game(&game);
 	parse_map(argv[1], &(game.map));
 	if (!(game.p.rays = malloc(sizeof(t_ray) * game.map.res[0])))
-		error("An allocation error has occured.");
+		error(ERR_ALLOCATION);
 	setup_mlx(&game);
 	place_player(&game);
 	game.p.proj_dist = fabs((game.map.res[0] / 2.0) /
 			tan(to_radians(FOV / 2.0)));
 	mlx_hook(game.win_ptr, 2, 1L << 0, &key_pressed, &game);
 	mlx_hook(game.win_ptr, 17, 1L << 0, &close_event, &game);
-	render(&game);
+	render(&game, screenshot);
 	mlx_loop(game.mlx_ptr);
 	reset_map(&(game.map));
 }

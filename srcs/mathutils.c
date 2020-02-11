@@ -6,7 +6,7 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 12:23:52 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/09 22:13:45 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/11 01:38:37 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,17 @@ t_point		point(double x, double y)
 	return (point);
 }
 
-int			rgbtoint(int rgb[3])
+double			atan2(double y, double x)
 {
-	int color;
-
-	if (rgb[0] > 255 || rgb[0] < 0 || rgb[1] > 255 || rgb[1] < 0 ||
-			rgb[2] > 255 || rgb[2] < 0)
-		return (-1);
-	color = (rgb[0] << 16);
-	color += (rgb[1] << 8);
-	color += rgb[2];
-	return (color);
+	if (x > 0)
+		return (atan(y / x));
+	else if (x < 0 && y >= 0)
+		return (atan(y / x) + PI);
+	else if (x < 0 && y < 0)
+		return (atan(y / x) - PI);
+	else if (x == 0 && y > 0)
+		return (PI / 2);
+	else if (x == 0 && y < 0)
+		return (-PI / 2);
+	return (0);
 }

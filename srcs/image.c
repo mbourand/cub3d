@@ -6,7 +6,7 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 13:18:03 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/10 03:55:12 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/11 12:34:31 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int		load_image(char *file, t_image *img, void *mlx_ptr)
 
 t_image	get_texture_face(t_game *game, int face)
 {
-	t_image textures[4] = {game->tex_no, game->tex_so, game->tex_we, game->tex_ea};
+	t_image textures[4] = {game->tex_no, game->tex_so, game->tex_we,
+	game->tex_ea};
 
 	if (face < 0 || face > 3)
 		return (game->tex_no);

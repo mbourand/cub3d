@@ -40,7 +40,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@echo "$(RED)[cub3d] : $(DEF)Compilation..."
 	@make -C libft
-	@gcc $(CFLAGS) -o $(NAME) $(OBJ) $(INC) $(LIB)
+	@gcc $(CFLAGS) -fsanitize=address -o $(NAME) $(OBJ) $(INC) $(LIB)
 	@echo "$(RED)[cub3d] : $(DEF)Compilation                 $(GRN)[OK]$(DEF)"
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
