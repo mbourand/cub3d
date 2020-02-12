@@ -6,7 +6,7 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 15:50:10 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/11 17:37:29 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/11 23:25:06 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void	setup_mlx(t_game *game)
 	if (!(game->img.data = mlx_get_data_addr(game->img.img, &(game->img.bpp),
 					&(game->img.size_line), &(game->img.endian))))
 		error("Image data couldn't be converted to string.");
+	mlx_do_key_autorepeatoff(game->mlx_ptr);
 	game->img.w = game->map.res[0];
 	game->img.h = game->map.res[1];
 }
@@ -91,7 +92,9 @@ int			main(int argc, char **argv)
 	game.p.proj_dist = fabs((game.map.res[0] / 2.0) /
 			tan(to_radians(FOV / 2.0)));
 	mlx_hook(game.win_ptr, 2, 1L << 0, &key_pressed, &game);
+	mlx_hook(game.win_ptr, 3, 1L << 1, &key_released, &game);
 	mlx_hook(game.win_ptr, 17, 1L << 0, &close_event, &game);
+	mlx_loop_hook(game.mlx_ptr, &actions, &game);
 	render(&game, screenshot);
 	mlx_loop(game.mlx_ptr);
 	reset_map(&(game.map));

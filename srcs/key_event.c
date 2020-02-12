@@ -6,59 +6,50 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 12:16:14 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/11 17:18:20 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/11 23:07:32 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	move_player(t_player *p, t_map map, int key)
+int		get_key_index(int key)
 {
-	t_point		pos;
+	static int	keys[8] = {K_UP, K_DOWN, K_LEFT, K_RIGHT,
+		K_CAMLEFT, K_CAMRIGHT, K_CAMUP, K_CAMDOWN};
 	int			i;
 
 	i = 0;
-	p->cam_angle += get_angle(key);
-	while (++i < MOVE_SPEED)
+	while (i < 8)
 	{
-		pos.x = p->pos.x + i * cos(to_radians(p->cam_angle));
-		pos.y = p->pos.y + i * sin(to_radians(p->cam_angle));
-		if (get_tile_at(pos, map.map_d) == '1')
-		{
-			pos.x = p->pos.x + (i - PLAYER_SIZE) * cos(to_radians(p->cam_angle));
-			pos.y = p->pos.y + (i - PLAYER_SIZE) * sin(to_radians(p->cam_angle));
-			break ;
-		}
+		if (keys[i] == key)
+			return (i);
+		i++;
 	}
-	p->cam_angle -= get_angle(key);
-	p->pos.x = pos.x;
-	p->pos.y = pos.y;
+	return (-1);
 }
 
-int	key_pressed(int key, void *param)
+int		key_released(int key, void *param)
 {
-	t_player	*player;
-	t_game		*game;
-
+	t_game	*game;
+	int		ind;
+	
 	game = (t_game*)param;
-	player = (t_player*)&(game->p);
-	if (key == K_CAMLEFT)
-		player->cam_angle = constrain(player->cam_angle - CAM_SPEED, 0, 360);
-	if (key == K_CAMRIGHT)
-		player->cam_angle = constrain(player->cam_angle + CAM_SPEED, 0, 360);
-	if (key == K_CAMUP)
-		game->floor_coef -= CAM_SPEED_V;
-	if (key == K_CAMDOWN)
-		game->floor_coef += CAM_SPEED_V;
-	if (game->floor_coef >= game->map.res[1] / 2)
-		game->floor_coef = game->map.res[1] / 2 - 1;
-	if (game->floor_coef <= -game->map.res[1] / 2)
-		game->floor_coef = -game->map.res[1] / 2 + 1;
-	if (key == K_UP || key == K_DOWN || key == K_LEFT || key == K_RIGHT)
-		move_player(player, game->map, key);
+	if ((ind = get_key_index(key)) != -1)
+		game->keys[ind] = 0;
+	return (0);
+}
+
+int		key_pressed(int key, void *param)
+{
+	t_game		*game;
+	int			ind;
+	
+	game = (t_game*)param;
+	if ((ind = get_key_index(key)) != -1)
+		game->keys[ind] = key;
 	if (key == K_ESC)
 		quit(game);
-	else
-		render(game, 0);
+	else if (key == K_SCREENSHOT)
+		save_image(game);
 	return (0);
 }

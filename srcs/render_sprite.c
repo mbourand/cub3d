@@ -52,22 +52,32 @@ void			render_sprite(int x_mid, t_point sprite, t_game *game)
 	double size;
 	t_point iter;
 	t_point tex;
+	int		color;
 
 	dist = distance(game->p.pos, point(sprite.x * CUBE_SIZE + CUBE_SIZE / 2, sprite.y * CUBE_SIZE + CUBE_SIZE / 2));
 	size = fabs(CUBE_SIZE / dist * game->p.proj_dist);
-	iter = point(-size / 2, -1);
-	while (++(iter.x) < size / 2)
+	if (size < game->map.res[0])
+		iter.x = -size / 2 - 1;
+	else
+		iter.x = -x_mid - 1;
+	if (iter.x < -1)
+		iter.x = -size / 2 - 1;
+	while (++(iter.x) < size / 2 && x_mid + iter.x < game->map.res[0])
 	{
 		if (size < game->map.res[1])
 			iter.y = -1;
 		else
-			iter.y = (game->map.res[1] / 2 - game->floor_coef - size / 2) * -1;
-		while (++(iter.y) < size)
+			iter.y = size / 2 + game->floor_coef - game->map.res[1] / 2 - 1;
+		if (iter.y < -1)
+			iter.y = -1;
+		while (++(iter.y) < size && game->map.res[1] / 2 - game->floor_coef + iter.y - (size / 2) < game->map.res[1])
 		{
 			tex = point((iter.x + size / 2) / size * game->tex_s.w, iter.y / size * game->tex_s.h);
-			if (x_mid + iter.x < 0 || x_mid + iter.x >= game->map.res[0] || game->map.res[1] / 2 - game->floor_coef + iter.y - (size / 2) >= game->map.res[1] || tex.x < 0 || tex.y < 0 || image_get_color(game->tex_s, tex.x, tex.y) == TRANSPARENT_COLOR || game->p.rays[(int)(x_mid + iter.x)].distance < dist)
+			if (x_mid + iter.x < 0 || x_mid + iter.x >= game->map.res[0] || game->map.res[1] / 2 - game->floor_coef + iter.y - (size / 2) >= game->map.res[1])
+				break ;
+			if (tex.x < 0 || tex.y < 0 || (color = image_get_color(game->tex_s, tex.x, tex.y)) == TRANSPARENT_COLOR || game->p.rays[(int)(x_mid + iter.x)].distance < dist)
 				continue ;
-			image_set_pixel(&(game->img), x_mid + iter.x, game->map.res[1] / 2 - game->floor_coef + iter.y - (size / 2), image_get_color(game->tex_s, tex.x, tex.y));
+			image_set_pixel(&(game->img), x_mid + iter.x, game->map.res[1] / 2 - game->floor_coef + iter.y - (size / 2), color);
 		}
 	}
 }

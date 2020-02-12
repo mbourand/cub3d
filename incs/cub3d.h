@@ -6,7 +6,7 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 16:38:05 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/11 17:38:39 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/12 04:55:58 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,15 @@
 # define K_CAMLEFT 65361
 # define K_CAMRIGHT 65363
 # define K_ESC 65307
+# define K_SCREENSHOT 42
 
 # define CUBE_SIZE 1920
 # define PLAYER_SIZE 100
-# define MOVE_SPEED 450
-# define CAM_SPEED 3.13
-# define CAM_SPEED_V 20
+# define MOVE_SPEED 200
+# define CAM_SPEED 2.76
+# define CAM_SPEED_V 10
 # define FOV 60
+# define MINIMAP_SIZE 200
 
 typedef struct		s_map
 {
@@ -122,7 +124,7 @@ typedef struct		s_game
 	t_map			map;
 	void			*mlx_ptr;
 	void			*win_ptr;
-	int				keys[6];
+	int				keys[8];
 }					t_game;
 
 t_image				get_texture_face(t_game *game, int face);
@@ -136,6 +138,7 @@ double				get_char_angle(char c);
 double				min(double d, double e);
 double				constrain(double d, double min, double max);
 double				cast(t_game *game, t_ray *ray);
+void				render_hud(t_game *game);
 void				render_sprites(t_game *game);
 void				render_wall(t_game *game, t_ray *ray, int x);
 void				reset_map(t_map *map);
@@ -143,6 +146,8 @@ void				init_game(t_game *game);
 void				image_set_pixel(t_image *img, int x, int y, int color);
 void				quit(t_game *game);
 void				error(char *message);
+void				save_image(t_game *game);
+int					key_released(int key, void *param);
 int					get_tile_at(t_point point, t_list *map_d);
 int					image_get_color(t_image img, int x, int y);
 int					get_key_index(int key);
@@ -155,6 +160,7 @@ int					parse_map(char *filename, t_map *map);
 int					key_pressed(int key, void *param);
 int					rgbtoint(int rgb[3]);
 int					close_event(void *param);
+int					actions(void *param);
 int					render(t_game *game, int save);
 int					load_image(char *file, t_image *img, void *mlx_ptr);
 

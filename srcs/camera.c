@@ -22,6 +22,6 @@ double	get_char_angle(char c)
 	if (c == 'W')
 		return (180);
 	if (c == 'E')
-		return (0);
+		return (0.0001);
 	return (0);
 }
