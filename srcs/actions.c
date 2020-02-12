@@ -1,26 +1,45 @@
 #include "cub3d.h"
+#include <stdio.h>
 
-void	move_player(t_player *p, t_map map, int key)
+void	sprite_collision(t_game *game)
+{
+	int		i;
+	int		size;
+	t_point *pt;
+
+	size = ft_lstsize(game->spritecoords);
+	i = 0;
+	while (i < size)
+	{
+		pt = (t_point*)ft_lstat(game->spritecoords, i)->content;
+		if (distance(game->p.pos, point(pt->x * CUBE_SIZE + CUBE_SIZE / 2, pt->y * CUBE_SIZE + CUBE_SIZE / 2)) < CUBE_SIZE / 2)
+			set_tile_at_grid(*pt, '0', game->map.map_d);
+		i++;
+	}
+}
+
+void	move_player(t_game *game, int key, double speed)
 {
 	t_point		pos;
 	int			i;
 
 	i = 0;
-	p->cam_angle += get_angle(key);
-	while (++i < MOVE_SPEED)
+	game->p.cam_angle += get_angle(key);
+	while (++i < speed)
 	{
-		pos.x = p->pos.x + i * cos(to_radians(p->cam_angle));
-		pos.y = p->pos.y + i * sin(to_radians(p->cam_angle));
-		if (get_tile_at(pos, map.map_d) == '1')
+		pos.x = game->p.pos.x + i * cos(to_radians(game->p.cam_angle));
+		pos.y = game->p.pos.y + i * sin(to_radians(game->p.cam_angle));
+		if (get_tile_at(pos, game->map.map_d) == '1')
 		{
-			pos.x = p->pos.x + (i - PLAYER_SIZE) * cos(to_radians(p->cam_angle));
-			pos.y = p->pos.y + (i - PLAYER_SIZE) * sin(to_radians(p->cam_angle));
+			pos.x = game->p.pos.x + (i - PLAYER_SIZE) * cos(to_radians(game->p.cam_angle));
+			pos.y = game->p.pos.y + (i - PLAYER_SIZE) * sin(to_radians(game->p.cam_angle));
 			break ;
 		}
 	}
-	p->cam_angle -= get_angle(key);
-	p->pos.x = pos.x;
-	p->pos.y = pos.y;
+	game->p.cam_angle -= get_angle(key);
+	game->p.pos.x = pos.x;
+	game->p.pos.y = pos.y;
+	sprite_collision(game);
 }
 
 int		keys_actions(int key, t_game *game)
@@ -34,7 +53,7 @@ int		keys_actions(int key, t_game *game)
 	else if (key == K_CAMDOWN)
 		game->floor_coef += CAM_SPEED_V;
 	else if (key == K_UP || key == K_DOWN || key == K_LEFT || key == K_RIGHT)
-		move_player(&(game->p), game->map, key);
+		move_player(game, key, MOVE_SPEED * (key == K_RIGHT || key == K_LEFT ? 0.75 : 1));
 	else
 		return (0);
 	return (1);

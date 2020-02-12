@@ -8,7 +8,7 @@ void	render_background(t_game *game, int x, int h)
 	j = -1;
 	while (++j < game->map.res[1] / 2 - game->floor_coef - (h / 2))
 		image_set_pixel(&(game->img), x, j, (j < game->map.res[1] / 2 - game->floor_coef ? game->map.col_c : game->map.col_f));
-	j = game->map.res[1] / 2 - game->floor_coef + (h / 2);
+	j = game->map.res[1] / 2 - game->floor_coef + (h / 2) - 1;
 	while (++j < game->map.res[1])
 		image_set_pixel(&(game->img), x, j, (j < game->map.res[1] / 2 - game->floor_coef ? game->map.col_c : game->map.col_f));
 }

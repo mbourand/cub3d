@@ -1,4 +1,4 @@
-R 1024 768
+R 800 600
 SO ./textures/papillon.XPM
 NO ./textures/texture.XPM
 WE ./textures/Dio vs Jotaro.XPM
