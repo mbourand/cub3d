@@ -6,7 +6,7 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 16:37:45 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/11 17:37:00 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/13 00:18:16 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void		init_game(t_game *game)
 	game->p.pos.x = CUBE_SIZE + CUBE_SIZE / 2.0;
 	game->p.pos.y = CUBE_SIZE + CUBE_SIZE / 2.0;
 	game->p.cam_angle = 0;
+	game->p.stamina = MAX_STAMINA;
 }
 
 void		error(char *message)

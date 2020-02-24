@@ -6,7 +6,7 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 12:16:14 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/11 23:07:32 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/13 15:17:18 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ int		key_pressed(int key, void *param)
 	if (key == K_ESC)
 		quit(game);
 	else if (key == K_SCREENSHOT)
-		save_image(game);
+		render(game, 1);
 	return (0);
 }

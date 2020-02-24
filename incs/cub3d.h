@@ -6,7 +6,7 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 16:38:05 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/12 18:21:54 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/13 15:14:06 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # define FACE_WEST 2
 # define FACE_EAST 3
 # define TRANSPARENT_COLOR 0x000000
+# define MAX_WIDTH 2560
+# define MAX_HEIGHT	1400
 # define ERR_ARG_COUNT "Invalid number of arguments. Use ./cub3d <map> [--save]"
 # define ERR_ARG_SAVE "Invalid second argument. Use ./cub3d <map> [--save]"
 # define ERR_ALLOCATION "An allocation error has occured."
@@ -55,11 +57,13 @@
 
 # define CUBE_SIZE 1920
 # define PLAYER_SIZE 67
-# define MOVE_SPEED 150
+# define MOVE_SPEED 125
 # define CAM_SPEED 2.33
 # define CAM_SPEED_V 10
 # define FOV 60
 # define MINIMAP_SIZE 200
+# define SCOPE_OFFSET 5
+# define MAX_STAMINA 200
 
 typedef struct		s_map
 {
@@ -105,6 +109,7 @@ typedef struct		s_player
 	t_point			pos;
 	double			cam_angle;
 	double			proj_dist;
+	int				stamina;
 	t_ray			*rays;
 }					t_player;
 
@@ -136,6 +141,8 @@ double				get_char_angle(char c);
 double				min(double d, double e);
 double				constrain(double d, double min, double max);
 double				cast(t_game *game, t_ray *ray);
+void				render_scope(t_game *game);
+void				render_minimap(t_game *game);
 void				render_hud(t_game *game);
 void				render_sprites(t_game *game);
 void				render_wall(t_game *game, t_ray *ray, int x);
@@ -144,14 +151,16 @@ void				init_game(t_game *game);
 void				image_set_pixel(t_image *img, int x, int y, int color);
 void				quit(t_game *game);
 void				error(char *message);
-void				save_image(t_game *game);
+void				save_image(t_image img);
 void				set_tile_at(t_point point, char val, t_list *map_d);
 void				set_tile_at_grid(t_point point, char val, t_list *map_d);
 int					key_released(int key, void *param);
 int					get_tile_at(t_point point, t_list *map_d);
+int					get_tile_at_grid(t_point point, t_list *map_d);
 int					image_get_color(t_image img, int x, int y);
 int					get_key_index(int key);
 int					check_map(t_list *map);
+int					format_description(t_map *map);
 int					parse_resolution(char *line, t_map *map);
 int					parse_texture(char *line, t_map *map);
 int					parse_color(char *line, t_map *map);

@@ -6,7 +6,7 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 14:33:59 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/12 04:29:27 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/13 15:14:33 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int			render(t_game *game, int save)
 	render_sprites(game);
 	render_hud(game);
 	if (save)
-		save_image(game);
+		save_image(game->img);
 	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->img.img, 0, 0);
 	mlx_destroy_image(game->mlx_ptr, game->img.img);
 	game->img.img = mlx_new_image(game->mlx_ptr, game->map.res[0], game->map.res[1]);

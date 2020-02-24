@@ -3,38 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbourand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 18:45:59 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/06 18:01:24 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/13 13:57:13 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+int		char_count(char *line)
+{
+	int i;
+	int len;
+
+	len = 0;
+	i = -1;
+	while (line[++i])
+	{
+		if (ft_skipcharset(line + i, "012NSWE") != 0)
+			len++;
+	}
+	return (len);
+}
+
 int		check_line(t_list *tmp, char **i_content, int *player,
 		char *fst_content)
 {
-	int i;
+	int		i;
+	t_point ret;
 
 	i = 0;
 	*i_content = (char*)(tmp->content);
 	while ((*i_content)[i])
 	{
-		if (i % 2 == 0 && ft_skipcharset(*i_content + i, "012NSWE") == 0)
+		if ((ret.x = ft_skipcharset(*i_content + i, "012NSWE")) != 1)
 			return (0);
-		if (i % 2 == 0 && ft_skipcharset(*i_content + i, "NSWE") != 0)
+		if (ft_skipcharset(*i_content + i, "NSWE") != 0)
 		{
 			if (*player == 1)
 				return (0);
 			*player = 1;
 		}
-		if (i % 2 == 1 && (*i_content)[i] != ' ')
+		if ((ret.y = ft_skipcharset(*i_content + i + 1, " ")) == 0 && (*i_content)[i + 1])
 			return (0);
-		i++;
+		i += 1 + ret.y;
 	}
-	if (ft_strlen(*i_content) != ft_strlen(fst_content) ||
-			ft_strlen(*i_content) == 0)
+	
+	if (char_count(*i_content) != char_count(fst_content) ||
+			char_count(*i_content) == 0)
 		return (0);
 	if ((*i_content)[0] != '1' ||
 			(*i_content)[ft_strlen(*i_content) - 1] != '1')

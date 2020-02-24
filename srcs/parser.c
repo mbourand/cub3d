@@ -6,7 +6,7 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 16:37:11 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/11 17:34:51 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/13 14:01:57 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ static int		parse_description(int fd, t_map *map)
 		error(ERR_FILE_READ);
 	if (!check_map(map->map_d))
 		error(ERR_MAP);
+	if (!format_description(map))
+		error(ERR_ALLOCATION);
 	return (ret > -1);
 }
 

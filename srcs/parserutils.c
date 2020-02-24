@@ -6,7 +6,7 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 16:37:29 by mbourand          #+#    #+#             */
-/*   Updated: 2020/01/30 13:57:36 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/13 03:10:47 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ int		parse_resolution(char *s, t_map *map)
 		i++;
 	if (!s[i] || i == 1)
 		return (0);
-	map->res[0] = ft_atoi(s + i);
+	map->res[0] = min(ft_atoi(s + i), MAX_WIDTH);
 	if (map->res[0] <= 0)
 		return (0);
 	i += ft_numberlen(map->res[0], 10);
 	if (s[i] != ' ' || !ft_isdigit(s[i + 1]))
 		return (0);
 	i++;
-	map->res[1] = ft_atoi(s + i);
+	map->res[1] = min(ft_atoi(s + i), MAX_HEIGHT);
 	if (s[i + ft_numberlen(map->res[1], 10)])
 		return (0);
 	if (map->res[1] <= 0)

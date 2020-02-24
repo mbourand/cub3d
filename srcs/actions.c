@@ -1,24 +1,28 @@
 #include "cub3d.h"
 #include <stdio.h>
 
-void	sprite_collision(t_game *game)
+static void	sprite_collision(t_game *game)
 {
 	int		i;
 	int		size;
 	t_point *pt;
 
 	size = ft_lstsize(game->spritecoords);
-	i = 0;
-	while (i < size)
+	i = -1;
+	while (++i < size)
 	{
 		pt = (t_point*)ft_lstat(game->spritecoords, i)->content;
+		if (get_tile_at_grid(*pt, game->map.map_d) != '2')
+			continue ;
 		if (distance(game->p.pos, point(pt->x * CUBE_SIZE + CUBE_SIZE / 2, pt->y * CUBE_SIZE + CUBE_SIZE / 2)) < CUBE_SIZE / 2)
+		{
+			game->p.stamina = MAX_STAMINA;
 			set_tile_at_grid(*pt, '0', game->map.map_d);
-		i++;
+		}
 	}
 }
 
-void	move_player(t_game *game, int key, double speed)
+static void	move_player(t_game *game, int key, double speed)
 {
 	t_point		pos;
 	int			i;
@@ -39,10 +43,11 @@ void	move_player(t_game *game, int key, double speed)
 	game->p.cam_angle -= get_angle(key);
 	game->p.pos.x = pos.x;
 	game->p.pos.y = pos.y;
+	game->p.stamina--;
 	sprite_collision(game);
 }
 
-int		keys_actions(int key, t_game *game)
+static int	keys_actions(int key, t_game *game)
 {
 	if (key == K_CAMLEFT)
 		game->p.cam_angle = constrain(game->p.cam_angle - CAM_SPEED, 0, 360);
@@ -54,9 +59,11 @@ int		keys_actions(int key, t_game *game)
 		game->floor_coef += CAM_SPEED_V;
 	else if (key == K_UP || key == K_DOWN || key == K_LEFT || key == K_RIGHT)
 		move_player(game, key, MOVE_SPEED * (key == K_RIGHT || key == K_LEFT ? 0.75 : 1));
+	else if (key == K_SCREENSHOT)
+		return (8);
 	else
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }
 
 int		actions(void *param)
@@ -70,8 +77,7 @@ int		actions(void *param)
 	rend = 8;
 	while (++i < 8)
 	{
-		if (!keys_actions(game->keys[i], game))
-			rend--;
+		rend -= keys_actions(game->keys[i], game);
 		if (game->floor_coef >= game->map.res[1] / 2)
 			game->floor_coef = game->map.res[1] / 2 - 1;
 		if (game->floor_coef <= -game->map.res[1] / 2)

@@ -21,7 +21,7 @@ SRC_NAME= main.c parser.c parserutils.c ray.c utils.c ft_numberlen.c \
 			ft_endswith.c ft_strdel.c ft_onlypattern.c check_map.c \
 			mathutils.c key_event.c close_event.c render.c ft_inrange.c \
 			image.c camera.c map.c render_wall.c render_sprite.c screenshot.c \
-			actions.c hud.c
+			actions.c hud.c minimap.c scope.c format_description.c
 OBJ_NAME= $(SRC_NAME:.c=.o)
 
 INC= -I incs/ -I libft/

@@ -6,7 +6,7 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 15:50:10 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/11 23:25:06 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/13 14:04:46 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,12 @@ static void		place_player(t_game *game)
 		while (s[++i])
 		{
 			if (s[i] == '2')
-				ft_lstadd_back(&(game->spritecoords), point_lstnew(i / 2, j));
+				ft_lstadd_back(&(game->spritecoords), point_lstnew(i, j));
 			if (s[i] == 'S' || s[i] == 'E' || s[i] == 'W' || s[i] == 'N')
 			{
-				game->p.pos = point((i / 2) * CUBE_SIZE + (CUBE_SIZE / 2),
-					j * CUBE_SIZE + (CUBE_SIZE / 2));
+				game->p.pos = point(i * CUBE_SIZE + CUBE_SIZE / 2,
+					j * CUBE_SIZE + CUBE_SIZE / 2);
 				game->p.cam_angle = get_char_angle(s[i]);
-				return ;
 			}
 		}
 		j++;
