@@ -6,13 +6,13 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 12:23:52 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/11 01:38:37 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/25 16:48:53 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-double		distance(t_point p, t_point p2)
+double			distance(t_point p, t_point p2)
 {
 	t_point dist;
 
@@ -21,12 +21,12 @@ double		distance(t_point p, t_point p2)
 	return (sqrt((dist.x * dist.x) + (dist.y * dist.y)));
 }
 
-double		to_radians(double angle)
+double			to_radians(double angle)
 {
 	return (PI / 180 * angle);
 }
 
-double		constrain(double d, double min, double max)
+double			constrain(double d, double min, double max)
 {
 	if (max < min)
 		return (d);
@@ -39,18 +39,9 @@ double		constrain(double d, double min, double max)
 	return (d);
 }
 
-double		min(double d, double e)
+double			min(double d, double e)
 {
 	return (d < e ? d : e);
-}
-
-t_point		point(double x, double y)
-{
-	t_point point;
-
-	point.x = x;
-	point.y = y;
-	return (point);
 }
 
 double			atan2(double y, double x)

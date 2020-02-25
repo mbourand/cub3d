@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   screenshot.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbourand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/25 16:08:32 by mbourand          #+#    #+#             */
+/*   Updated: 2020/02/25 16:15:14 by mbourand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 static void	write_int(unsigned char *str, int value)
@@ -28,7 +40,7 @@ static int	write_header(int fd, int size, t_image img)
 	return (!(write(fd, header, 54) < 0));
 }
 
-static int		write_data(int file, t_image img)
+static int	write_data(int file, t_image img)
 {
 	t_point	pos;
 	int		color;
@@ -49,11 +61,12 @@ static int		write_data(int file, t_image img)
 	return (1);
 }
 
-void	save_image(t_image img)
+void		save_image(t_image img)
 {
 	int fd;
 
-	if (!(fd = open("screenshot.bmp", O_WRONLY | O_CREAT, S_IWUSR | S_IRUSR | S_IROTH | S_IRGRP)))
+	if (!(fd = open("screenshot.bmp", O_WRONLY | O_CREAT, S_IWUSR | S_IRUSR
+					| S_IROTH | S_IRGRP)))
 		error(ERR_SCREEN_OPEN);
 	if (!write_header(fd, 54 + (img.w * img.h), img))
 		error(ERR_SCREEN_WRITE);

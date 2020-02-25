@@ -6,7 +6,7 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 12:04:20 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/11 12:29:53 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/25 16:36:37 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ double			cast(t_game *game, t_ray *ray)
 	if ((distance.x == -1 && distance.y != -1) ||
 		(distance.y != -1 && distance.y <= distance.x))
 	{
-		ray->face = (ray->angle < 270 && ray->angle > 90 ? FACE_EAST : FACE_WEST);
+		ray->face = (ray->angle < 270 && ray->angle > 90 ? FACE_EAST :
+				FACE_WEST);
 		return (set_ray(ray, distance.y, wall.y));
 	}
 	if ((distance.y == -1 && distance.x != -1) ||

@@ -6,7 +6,7 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 18:45:59 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/13 13:57:13 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/25 16:41:30 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,14 @@ int		check_line(t_list *tmp, char **i_content, int *player,
 				return (0);
 			*player = 1;
 		}
-		if ((ret.y = ft_skipcharset(*i_content + i + 1, " ")) == 0 && (*i_content)[i + 1])
+		if ((ret.y = ft_skipcharset(*i_content + i + 1, " ")) == 0 &&
+				(*i_content)[i + 1])
 			return (0);
 		i += 1 + ret.y;
 	}
-	
-	if (char_count(*i_content) != char_count(fst_content) ||
-			char_count(*i_content) == 0)
-		return (0);
-	if ((*i_content)[0] != '1' ||
-			(*i_content)[ft_strlen(*i_content) - 1] != '1')
-		return (0);
-	return (1);
+	return (!(char_count(*i_content) != char_count(fst_content) ||
+		char_count(*i_content) == 0 || (*i_content)[0] != '1' ||
+		(*i_content)[ft_strlen(*i_content) - 1] != '1'));
 }
 
 int		check_map(t_list *map)

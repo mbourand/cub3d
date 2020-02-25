@@ -6,7 +6,7 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 23:59:37 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/12 23:59:37 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/25 16:37:19 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ static void	draw_map_at(t_point iter, t_game *game, int wall_size)
 		* 0.4 && (int)coords.x % CUBE_SIZE < CUBE_SIZE * 0.6
 		&& (int)coords.y % CUBE_SIZE > CUBE_SIZE * 0.4 &&
 		(int)coords.y % CUBE_SIZE < CUBE_SIZE * 0.6)
-			image_set_pixel(&(game->img), game->map.res[0] - 10 -
-			iter.x, 10 + iter.y, 0xFFFF00);
-		else
-			image_set_pixel(&(game->img), game->map.res[0] - 10 -
-			iter.x, 10 + iter.y, 0x000000);
+		image_set_pixel(&(game->img), game->map.res[0] - 10 -
+		iter.x, 10 + iter.y, 0xFFFF00);
+	else
+		image_set_pixel(&(game->img), game->map.res[0] - 10 -
+		iter.x, 10 + iter.y, 0x000000);
 }
 
 void		render_minimap(t_game *game)

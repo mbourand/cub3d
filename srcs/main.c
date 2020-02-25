@@ -6,14 +6,14 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 15:50:10 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/13 14:04:46 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/25 16:36:17 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "string.h"
 
-static void	setup_mlx(t_game *game)
+static void		setup_mlx(t_game *game)
 {
 	if (!(game->mlx_ptr = mlx_init()))
 		error("Minilibx initialisation failed.");
@@ -36,7 +36,6 @@ static void	setup_mlx(t_game *game)
 	if (!(game->img.data = mlx_get_data_addr(game->img.img, &(game->img.bpp),
 					&(game->img.size_line), &(game->img.endian))))
 		error("Image data couldn't be converted to string.");
-	mlx_do_key_autorepeatoff(game->mlx_ptr);
 	game->img.w = game->map.res[0];
 	game->img.h = game->map.res[1];
 }
@@ -70,17 +69,16 @@ static void		place_player(t_game *game)
 	}
 }
 
-int			main(int argc, char **argv)
+int				main(int argc, char **argv)
 {
 	t_game	game;
 	int		screenshot;
 
-	screenshot = 0;
 	if (argc < 2 || argc > 3)
 		error(ERR_ARG_COUNT);
-	if (argc == 3 && !ft_strncmp(argv[2], "--save", (ft_strlen(argv[2]) > 6 ? ft_strlen(argv[2]) : 6)))
-		screenshot = 1;
-	else if (argc == 3)
+	screenshot = (argc == 3 && !ft_strncmp(argv[2], "--save",
+				(ft_strlen(argv[2]) > 6 ? ft_strlen(argv[2]) : 6)));
+	if (argc == 3 && !screenshot)
 		error(ERR_ARG_SAVE);
 	init_game(&game);
 	parse_map(argv[1], &(game.map));

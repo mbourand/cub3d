@@ -6,7 +6,7 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 16:37:45 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/13 00:18:16 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/25 16:53:21 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,6 @@ int			rgbtoint(int rgb[3])
 	color += (rgb[1] << 8);
 	color += rgb[2];
 	return (color);
-}
-
-t_list		*point_lstnew(double x, double y)
-{
-	t_point	*point;
-	t_list	*elem;
-
-	if (!(point = malloc(sizeof(t_point))))
-		error(ERR_ALLOCATION);
-	point->x = x;
-	point->y = y;
-	if (!(elem = ft_lstnew(point)))
-		error(ERR_ALLOCATION);
-	return (elem);
 }
 
 void		reset_map(t_map *map)
@@ -56,6 +42,8 @@ void		reset_map(t_map *map)
 
 void		init_game(t_game *game)
 {
+	int i;
+
 	(game->map.res)[0] = -1;
 	(game->map.res)[1] = -1;
 	game->map.tex_no = 0;
@@ -71,7 +59,9 @@ void		init_game(t_game *game)
 	game->p.pos.x = CUBE_SIZE + CUBE_SIZE / 2.0;
 	game->p.pos.y = CUBE_SIZE + CUBE_SIZE / 2.0;
 	game->p.cam_angle = 0;
-	game->p.stamina = MAX_STAMINA;
+	i = -1;
+	while (++i < 8)
+		game->keys[i] = -1;
 }
 
 void		error(char *message)

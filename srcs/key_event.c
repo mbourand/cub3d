@@ -6,11 +6,12 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 12:16:14 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/13 15:17:18 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/25 16:26:17 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <stdio.h>
 
 int		get_key_index(int key)
 {
@@ -32,10 +33,10 @@ int		key_released(int key, void *param)
 {
 	t_game	*game;
 	int		ind;
-	
+
 	game = (t_game*)param;
 	if ((ind = get_key_index(key)) != -1)
-		game->keys[ind] = 0;
+		game->keys[ind] = -1;
 	return (0);
 }
 
@@ -43,7 +44,7 @@ int		key_pressed(int key, void *param)
 {
 	t_game		*game;
 	int			ind;
-	
+
 	game = (t_game*)param;
 	if ((ind = get_key_index(key)) != -1)
 		game->keys[ind] = key;

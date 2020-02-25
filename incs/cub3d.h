@@ -6,7 +6,7 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 16:38:05 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/13 15:14:06 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/25 15:55:26 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,20 @@
 # define ERR_SCREEN_OPEN "The screenshot file couldn't be opened."
 # define ERR_SCREEN_WRITE "The screenshot file couldn't be written."
 
-# define K_UP 122
-# define K_DOWN 115
-# define K_LEFT 113
-# define K_RIGHT 100
-# define K_CAMUP 65362
-# define K_CAMDOWN 65364
-# define K_CAMLEFT 65361
-# define K_CAMRIGHT 65363
-# define K_ESC 65307
-# define K_SCREENSHOT 42
+# define K_UP 13
+# define K_DOWN 1
+# define K_LEFT 0
+# define K_RIGHT 2
+# define K_CAMUP 126
+# define K_CAMDOWN 125
+# define K_CAMLEFT 123
+# define K_CAMRIGHT 124
+# define K_ESC 53
+# define K_SCREENSHOT 39
 
 # define CUBE_SIZE 1920
-# define PLAYER_SIZE 67
-# define MOVE_SPEED 125
+# define PLAYER_SIZE 100
+# define MOVE_SPEED 240
 # define CAM_SPEED 2.33
 # define CAM_SPEED_V 10
 # define FOV 60
@@ -89,7 +89,6 @@ typedef struct		s_image
 	int				endian;
 }					t_image;
 
-
 typedef struct		s_point
 {
 	double			x;
@@ -109,7 +108,6 @@ typedef struct		s_player
 	t_point			pos;
 	double			cam_angle;
 	double			proj_dist;
-	int				stamina;
 	t_ray			*rays;
 }					t_player;
 

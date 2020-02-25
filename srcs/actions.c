@@ -1,7 +1,18 @@
-#include "cub3d.h"
-#include <stdio.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   actions.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbourand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/25 16:20:04 by mbourand          #+#    #+#             */
+/*   Updated: 2020/02/25 16:56:04 by mbourand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-static void	sprite_collision(t_game *game)
+#include "cub3d.h"
+
+void		sprite_collision(t_game *game)
 {
 	int		i;
 	int		size;
@@ -14,15 +25,15 @@ static void	sprite_collision(t_game *game)
 		pt = (t_point*)ft_lstat(game->spritecoords, i)->content;
 		if (get_tile_at_grid(*pt, game->map.map_d) != '2')
 			continue ;
-		if (distance(game->p.pos, point(pt->x * CUBE_SIZE + CUBE_SIZE / 2, pt->y * CUBE_SIZE + CUBE_SIZE / 2)) < CUBE_SIZE / 2)
+		if (distance(game->p.pos, point(pt->x * CUBE_SIZE + CUBE_SIZE / 2,
+						pt->y * CUBE_SIZE + CUBE_SIZE / 2)) < CUBE_SIZE / 2)
 		{
-			game->p.stamina = MAX_STAMINA;
 			set_tile_at_grid(*pt, '0', game->map.map_d);
 		}
 	}
 }
 
-static void	move_player(t_game *game, int key, double speed)
+void		move_player(t_game *game, int key, double speed)
 {
 	t_point		pos;
 	int			i;
@@ -35,19 +46,20 @@ static void	move_player(t_game *game, int key, double speed)
 		pos.y = game->p.pos.y + i * sin(to_radians(game->p.cam_angle));
 		if (get_tile_at(pos, game->map.map_d) == '1')
 		{
-			pos.x = game->p.pos.x + (i - PLAYER_SIZE) * cos(to_radians(game->p.cam_angle));
-			pos.y = game->p.pos.y + (i - PLAYER_SIZE) * sin(to_radians(game->p.cam_angle));
+			pos.x = game->p.pos.x + (i - PLAYER_SIZE)
+				* cos(to_radians(game->p.cam_angle));
+			pos.y = game->p.pos.y + (i - PLAYER_SIZE)
+				* sin(to_radians(game->p.cam_angle));
 			break ;
 		}
 	}
 	game->p.cam_angle -= get_angle(key);
 	game->p.pos.x = pos.x;
 	game->p.pos.y = pos.y;
-	game->p.stamina--;
 	sprite_collision(game);
 }
 
-static int	keys_actions(int key, t_game *game)
+int			keys_actions(int key, t_game *game)
 {
 	if (key == K_CAMLEFT)
 		game->p.cam_angle = constrain(game->p.cam_angle - CAM_SPEED, 0, 360);
@@ -58,7 +70,8 @@ static int	keys_actions(int key, t_game *game)
 	else if (key == K_CAMDOWN)
 		game->floor_coef += CAM_SPEED_V;
 	else if (key == K_UP || key == K_DOWN || key == K_LEFT || key == K_RIGHT)
-		move_player(game, key, MOVE_SPEED * (key == K_RIGHT || key == K_LEFT ? 0.75 : 1));
+		move_player(game, key
+				, MOVE_SPEED * (key == K_RIGHT || key == K_LEFT ? 0.75 : 1));
 	else if (key == K_SCREENSHOT)
 		return (8);
 	else
@@ -66,7 +79,7 @@ static int	keys_actions(int key, t_game *game)
 	return (0);
 }
 
-int		actions(void *param)
+int			actions(void *param)
 {
 	int		i;
 	int		rend;
@@ -87,3 +100,4 @@ int		actions(void *param)
 		render(game, 0);
 	return (0);
 }
+
