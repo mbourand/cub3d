@@ -6,7 +6,7 @@
 /*   By: mbourand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 16:49:08 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/25 16:52:54 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/25 17:13:45 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_point			point(double x, double y)
 	return (point);
 }
 
-t_list		*point_lstnew(double x, double y)
+t_list			*point_lstnew(double x, double y)
 {
 	t_point	*point;
 	t_list	*elem;
@@ -33,4 +33,13 @@ t_list		*point_lstnew(double x, double y)
 	if (!(elem = ft_lstnew(point)))
 		error(ERR_ALLOCATION);
 	return (elem);
+}
+
+void			swap(t_point *p, t_point *p2)
+{
+	t_point tmp;
+
+	tmp = *p;
+	*p = *p2;
+	*p2 = tmp;
 }

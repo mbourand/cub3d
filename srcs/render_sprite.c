@@ -6,7 +6,7 @@
 /*   By: mbourand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 15:56:53 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/25 17:06:56 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/25 17:18:54 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,6 @@ t_point			*ft_lsttotab(t_list *list)
 	return (res);
 }
 
-void			swap(t_point *p, t_point *p2)
-{
-	t_point tmp;
-
-	tmp = *p;
-	*p = *p2;
-	*p2 = tmp;
-}
-
 t_point			*sort_sprites(t_point *sprites, int size, t_point pos)
 {
 	int j;
@@ -59,15 +50,13 @@ t_point			*sort_sprites(t_point *sprites, int size, t_point pos)
 	return (sprites);
 }
 
-void	draw_col(t_game *game, t_point sdata, t_point iter, int x_mid)
+void			draw_col(t_game *game, t_point sdata, t_point iter, int x_mid)
 {
 	t_point	tex;
 	int		color;
 	double	size;
-	double	dist;
 
 	size = sdata.x;
-	dist = sdata.y;
 	if (size < game->map.res[1] || game->floor_coef - game->map.res[1] / 2 < 0)
 		iter.y = -1;
 	else
@@ -82,7 +71,7 @@ void	draw_col(t_game *game, t_point sdata, t_point iter, int x_mid)
 				(size / 2) >= game->map.res[1])
 			break ;
 		if ((color = image_get_color(game->tex_s, tex.x, tex.y)) ==
-	TRANSPARENT_COLOR || game->p.rays[(int)(x_mid + iter.x)].distance < dist)
+	TRANSPARENT_COLOR || game->p.rays[(int)(x_mid + iter.x)].distance < sdata.y)
 			continue ;
 		image_set_pixel(&(game->img), x_mid + iter.x, game->map.res[1] / 2
 				- game->floor_coef + iter.y - (size / 2), color);
@@ -111,14 +100,12 @@ void			render_sprites(t_game *game)
 	t_point *sprites;
 	t_point	inc;
 	t_point tmp;
-	int		size;
 	int		i;
 
 	i = -1;
 	sprites = ft_lsttotab(game->spritecoords);
-	size = ft_lstsize(game->spritecoords);
 	sprites = sort_sprites(sprites, size, game->p.pos);
-	while (++i < size)
+	while (++i < ft_lstsize(game->spritecoords))
 	{
 		if (get_tile_at(point(sprites[i].x * CUBE_SIZE, sprites[i].y *
 						CUBE_SIZE), game->map.map_d) != '2')

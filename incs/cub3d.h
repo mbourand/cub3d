@@ -6,7 +6,7 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 16:38:05 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/25 15:55:26 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/25 17:14:12 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ void				error(char *message);
 void				save_image(t_image img);
 void				set_tile_at(t_point point, char val, t_list *map_d);
 void				set_tile_at_grid(t_point point, char val, t_list *map_d);
+void				swap(t_point *p1, t_point *p2);
 int					key_released(int key, void *param);
 int					get_tile_at(t_point point, t_list *map_d);
 int					get_tile_at_grid(t_point point, t_list *map_d);
