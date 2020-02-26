@@ -6,7 +6,7 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 16:37:29 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/25 15:27:51 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/26 16:05:06 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ int		parse_resolution(char *s, t_map *map)
 	if (map->res[0] <= 0)
 		return (0);
 	i += ft_numberlen(map->res[0], 10);
-	if (s[i] != ' ' || !ft_isdigit(s[i + 1]))
+	if (s[i] != ' ' || !ft_isdigit(s[i + ft_skipcharset(s + i, " ")]))
 		return (0);
-	i++;
+	i += ft_skipcharset(s + i, " ");
 	map->res[1] = min(ft_atoi(s + i), MAX_HEIGHT);
 	if (s[i + ft_numberlen(map->res[1], 10)])
 		return (0);
@@ -63,32 +63,61 @@ int		parse_texture(char *line, t_map *map)
 	return (1);
 }
 
+int		check_split(char *line, char **split)
+{
+	t_point iter;
+
+	iter = point(0, 0);
+	while (split[(int)iter.x])
+		iter.x++;
+	if (iter.x != 3)
+		return (0);
+	iter.x = -1;
+	while (++(iter.x) < ft_strlen(line))
+	{
+		iter.y = (line[(int)iter.x] == ',') ? iter.y + 1 : 0;
+		if (iter.y == 2)
+			return (0);
+	}
+	iter = point(-1, -1);
+	while (++(iter.x) < 3)
+	{
+		iter.y = -1;
+		while (++(iter.y) < ft_strlen(split[(int)iter.x]))
+			if (!ft_isdigit(split[(int)iter.x][(int)iter.y]) &&
+(split[(int)iter.x][(int)iter.y] != ' ' ||
+ft_skipcharset(split[(int)iter.x], " ") == ft_strlen(split[(int)iter.x])))
+				return (0);
+	}
+	return (1);
+}
+
 int		parse_color(char *line, t_map *map)
 {
-	int i;
-	int rgb[3];
-	int color;
+	int		i;
+	int		rgb[3];
+	int		col;
+	char	**split;
 
-	i = 1 + ft_skipcharset(line + 1, " ");
-	if (!line[i] || i == 1)
-		return (0);
-	rgb[0] = ft_atoi(line + i);
-	i += ft_numberlen(rgb[0], 10);
-	if (line[i] != ',' || !ft_isdigit(line[i + 1]))
-		return (0);
-	rgb[1] = ft_atoi(line + i + 1);
-	i += ft_numberlen(rgb[1], 10) + 1;
-	if (line[i] != ',' || !ft_isdigit(line[i + 1]))
-		return (0);
-	rgb[2] = ft_atoi(line + i + 1);
-	if (line[i + ft_numberlen(rgb[2], 10) + 1] || (color = rgbtoint(rgb)) == -1)
-		return (0);
+	if (line[1] != ' ')
+		error(ERR_COLOR);
+	split = ft_split(line + 1, ',');
+	if (!check_split(line, split) ||
+!ft_isdigit(split[2][ft_strlen(split[2]) - 1]) || (col = rgbtoint(rgb)) == -1)
+		error(ERR_COLOR);
 	if (line[0] == 'F' && map->col_f == -1)
-		map->col_f = color;
+		map->col_f = col;
 	else if (line[0] == 'C' && map->col_c == -1)
-		map->col_c = color;
+		map->col_c = col;
 	else
-		return (0);
+		error(ERR_COLOR);
+	i = -1;
+	while (++i < 3)
+	{
+		rgb[i] = ft_atoi(split[i]);
+		free(split[i]);
+	}
+	free(split);
 	return (1);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbourand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 16:20:04 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/25 16:56:04 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/26 13:20:55 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void		sprite_collision(t_game *game)
 		if (get_tile_at_grid(*pt, game->map.map_d) != '2')
 			continue ;
 		if (distance(game->p.pos, point(pt->x * CUBE_SIZE + CUBE_SIZE / 2,
-						pt->y * CUBE_SIZE + CUBE_SIZE / 2)) < CUBE_SIZE / 2)
+						pt->y * CUBE_SIZE + CUBE_SIZE / 2)) < CUBE_SIZE)
 		{
 			set_tile_at_grid(*pt, '0', game->map.map_d);
 		}
@@ -71,7 +71,7 @@ int			keys_actions(int key, t_game *game)
 		game->floor_coef += CAM_SPEED_V;
 	else if (key == K_UP || key == K_DOWN || key == K_LEFT || key == K_RIGHT)
 		move_player(game, key
-				, MOVE_SPEED * (key == K_RIGHT || key == K_LEFT ? 0.75 : 1));
+			, 0 + MOVE_SPEED * (key == K_RIGHT || key == K_LEFT ? 0.75 : 1));
 	else if (key == K_SCREENSHOT)
 		return (8);
 	else
@@ -100,4 +100,3 @@ int			actions(void *param)
 		render(game, 0);
 	return (0);
 }
-

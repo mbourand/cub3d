@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_sprite.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbourand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 15:56:53 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/25 17:18:54 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/26 13:19:26 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,8 @@ void			render_sprites(t_game *game)
 	int		i;
 
 	i = -1;
-	sprites = ft_lsttotab(game->spritecoords);
-	sprites = sort_sprites(sprites, size, game->p.pos);
+	sprites = sort_sprites(ft_lsttotab(game->spritecoords),
+		ft_lstsize(game->spritecoords), game->p.pos);
 	while (++i < ft_lstsize(game->spritecoords))
 	{
 		if (get_tile_at(point(sprites[i].x * CUBE_SIZE, sprites[i].y *

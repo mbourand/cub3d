@@ -1,13 +1,26 @@
-R 1024 768
-SO ./textures/papillon.XPM
-NO ./textures/texture.XPM
-WE ./textures/Dio vs Jotaro.XPM
-EA ./textures/texture6.XPM
-S ./textures/coin1.XPM
-F 100,100,100
-C 20,20,20
+R   1000  800
+
+
+SO  ./textures/bricks.XPM
+
+
+NO  ./textures/stone.XPM
+
+
+WE  ./textures/mossystone.XPM
+
+
+EA  ./textures/concrete.XPM
+
+S   ./textures/ring.XPM
+
+F 20  ,120, 20
+
+C 0    ,100,200
+
+
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-1 0 0 0     0 0  0     0   0 0 1 1 0 0 0   0 0   0 0 0   0   0 0 0 0 0 0 0 1
+1 0 0    0     0 0  0     0   0 0 1 1 0 0 0   0 0   0 0 0   0   0 0 0 0 0 0 0 1
 1 0 1 1 0 0 0   0 0 1 1      1 0    0 0 0 0 0 0   1 1 1 0   0 1 0 0 0 1
 1 0 0 1 0 0 0 0 0 0 0 0  0 0 1  1 1 1 1 1   0 0 0 0 1 0 2 0 1
 1 0 1 1 0 0  0 0 0 1 1  1 0 0 1 0  0 1 0 1 0    0 0 0    1 0 0 0 1

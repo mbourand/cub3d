@@ -6,7 +6,7 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 16:38:05 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/25 17:14:12 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/26 13:21:34 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@
 # define K_SCREENSHOT 39
 
 # define CUBE_SIZE 1920
-# define PLAYER_SIZE 100
+# define PLAYER_SIZE 67
 # define MOVE_SPEED 240
 # define CAM_SPEED 2.33
 # define CAM_SPEED_V 10
