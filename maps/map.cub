@@ -1,4 +1,4 @@
-R   1000  800
+R   60000  80000
 
 
 SO  ./textures/bricks.XPM
@@ -14,9 +14,9 @@ EA  ./textures/concrete.XPM
 
 S   ./textures/ring.XPM
 
-F 20  ,120, 20
+F 20,120,20
 
-C 0    ,100,200
+C 0,100,200
 
 
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1

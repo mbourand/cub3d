@@ -6,11 +6,29 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 18:45:59 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/25 16:41:30 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/27 14:40:29 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int		check_end(char **line, t_map *map)
+{
+	static int end;
+
+	if (end == 1)
+		error(ERR_MAP);
+	if (!(*line)[0])
+	{
+		if (ft_lstsize(map->map_d) == 0)
+		{
+			ft_strdel(line);
+			return (1);
+		}
+		end++;
+	}
+	return (0);
+}
 
 int		char_count(char *line)
 {

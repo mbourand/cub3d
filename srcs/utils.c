@@ -6,7 +6,7 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 16:37:45 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/25 16:53:21 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/27 14:53:23 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,13 @@ void		error(char *message)
 {
 	ft_putendl_fd("Error", 2);
 	ft_putendl_fd(message, 2);
+	system("leaks cub3d");
 	exit(EXIT_FAILURE);
 }
 
 void		quit(t_game *game)
 {
 	mlx_destroy_window(game->mlx_ptr, game->win_ptr);
+	system("leaks cub3d");
 	exit(EXIT_SUCCESS);
 }

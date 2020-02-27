@@ -6,12 +6,12 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 16:37:11 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/13 14:01:57 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/27 14:39:19 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "libft.h"
+#include <stdio.h>
 
 static int		parse_parameters(int fd, t_map *map)
 {
@@ -47,14 +47,12 @@ static int		parse_description(int fd, t_map *map)
 	int		ret;
 	char	*line;
 	t_list	*elem;
+	int		end;
 
 	while ((ret = get_next_line(fd, &line)))
 	{
-		if (!line[0])
-		{
-			free(line);
+		if ((end = check_end(&line, map)) == 1)
 			continue ;
-		}
 		if (!(elem = ft_lstnew(line)))
 			error(ERR_ALLOCATION);
 		ft_lstadd_back(&map->map_d, elem);

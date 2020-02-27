@@ -6,7 +6,7 @@
 #    By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/14 15:50:28 by mbourand          #+#    #+#              #
-#    Updated: 2020/02/26 14:13:01 by mbourand         ###   ########.fr        #
+#    Updated: 2020/02/27 14:47:47 by mbourand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@echo "$(RED)[cub3d] : $(DEF)Compilation..."
 	@make -C libft
-	@gcc $(CFLAGS) -fsanitize=address -o $(NAME) $(OBJ) $(INC) $(LIB)
+	@gcc $(CFLAGS) -o $(NAME) $(OBJ) $(INC) $(LIB)
 	@echo "$(RED)[cub3d] : $(DEF)Compilation                 $(GRN)[OK]$(DEF)"
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c

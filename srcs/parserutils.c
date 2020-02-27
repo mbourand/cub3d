@@ -6,7 +6,7 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 16:37:29 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/26 16:05:06 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/27 16:46:58 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ int		parse_resolution(char *s, t_map *map)
 	map->res[0] = min(ft_atoi(s + i), MAX_WIDTH);
 	if (map->res[0] <= 0)
 		return (0);
-	i += ft_numberlen(map->res[0], 10);
+	i += ft_numberlen(ft_atoi(s + i), 10);
 	if (s[i] != ' ' || !ft_isdigit(s[i + ft_skipcharset(s + i, " ")]))
 		return (0);
 	i += ft_skipcharset(s + i, " ");
 	map->res[1] = min(ft_atoi(s + i), MAX_HEIGHT);
-	if (s[i + ft_numberlen(map->res[1], 10)])
+	if (s[i + ft_numberlen(ft_atoi(s + i), 10)])
 		return (0);
 	if (map->res[1] <= 0)
 		return (0);
@@ -102,8 +102,15 @@ int		parse_color(char *line, t_map *map)
 	if (line[1] != ' ')
 		error(ERR_COLOR);
 	split = ft_split(line + 1, ',');
-	if (!check_split(line, split) ||
-!ft_isdigit(split[2][ft_strlen(split[2]) - 1]) || (col = rgbtoint(rgb)) == -1)
+	if (!check_split(line, split))
+		error(ERR_COLOR);
+	i = -1;
+	while (++i < 3)
+		rgb[i] = ft_atoi(split[i]);
+	while (++i < 7)
+		free(split[i - 4]);
+	free(split);
+	if (!ft_isdigit(line[ft_strlen(line) - 1]) || (col = rgbtoint(rgb)) == -1)
 		error(ERR_COLOR);
 	if (line[0] == 'F' && map->col_f == -1)
 		map->col_f = col;
@@ -111,13 +118,6 @@ int		parse_color(char *line, t_map *map)
 		map->col_c = col;
 	else
 		error(ERR_COLOR);
-	i = -1;
-	while (++i < 3)
-	{
-		rgb[i] = ft_atoi(split[i]);
-		free(split[i]);
-	}
-	free(split);
 	return (1);
 }
 

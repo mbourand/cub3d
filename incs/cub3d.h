@@ -6,7 +6,7 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 16:38:05 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/26 13:21:34 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/02/27 14:39:42 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,5 +171,6 @@ int					close_event(void *param);
 int					actions(void *param);
 int					render(t_game *game, int save);
 int					load_image(char *file, t_image *img, void *mlx_ptr);
+int					check_end(char **line, t_map *map);
 
 #endif
