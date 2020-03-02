@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbourand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 16:02:45 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/25 16:03:27 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/03/02 16:11:43 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ double	get_char_angle(char c)
 	if (c == 'S')
 		return (270);
 	if (c == 'W')
-		return (180);
+		return (0.00001);
 	if (c == 'E')
-		return (0.0001);
+		return (180);
 	return (0);
 }

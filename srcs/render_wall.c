@@ -6,12 +6,11 @@
 /*   By: mbourand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 16:09:00 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/25 16:25:26 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/03/02 16:46:39 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdio.h>
 
 void	render_background(t_game *game, int x, int h)
 {

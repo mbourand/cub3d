@@ -6,12 +6,11 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 14:33:59 by mbourand          #+#    #+#             */
-/*   Updated: 2020/02/25 16:22:28 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/03/02 16:46:33 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdio.h>
 
 int			render(t_game *game, int save)
 {

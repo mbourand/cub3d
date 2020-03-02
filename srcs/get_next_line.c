@@ -6,7 +6,7 @@
 /*   By: mbourand <mbourand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 15:05:03 by mbourand          #+#    #+#             */
-/*   Updated: 2020/01/14 22:08:09 by mbourand         ###   ########.fr       */
+/*   Updated: 2020/03/02 16:46:18 by mbourand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int			get_next_line(int fd, char **line)
 			return (-1);
 		ft_bzero(buffer, BUFFER_SIZE + 1);
 		bytes = read(fd, buffer, BUFFER_SIZE);
-		if (bytes <= 0)
-			return (bytes);
+		if (bytes <= 0 || !buffer[0])
+			return (!buffer[0] ? 0 : bytes);
 	}
 	if (!(*line = ft_strjoinuntil(*line, buffer, '\n')))
 		return (-1);
